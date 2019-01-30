@@ -13,11 +13,23 @@ import { routing, appRoutingProviders } from './app.routing';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule }   from '@angular/forms';
 import { HomeComponent } from './home/home.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+//import { MatButtonModule } from '@angular/material/button';
+//import { MatIconModule } from '@angular/material/icon';
+import {MatListModule,MatButtonModule,MatCheckboxModule,MatToolbarModule,MatInputModule,MatProgressSpinnerModule,MatCardModule,MatMenuModule, MatIconModule} from '@angular/material';
+import {  MatPaginatorModule, MatSortModule, MatTableModule } from "@angular/material";
+import { CommonModule } from '@angular/common';
 import { LoginComponent } from './login/login.component';
+import {DataTableModule} from "angular2-datatable";
+import { DataFilterPipe } from './pipes/data-filter.pipe';
 //import { routing, appRoutingProviders } from './app.routing';
 //import { routing, appRoutingProviders } from './app.routing';
-
-
+//import { MatSidenavModule } from '@angular/material/sidenav';
+@NgModule({
+  imports: [MatButtonModule, MatCheckboxModule,MatToolbarModule,MatInputModule,MatProgressSpinnerModule,MatCardModule,MatMenuModule,MatIconModule],
+  exports: [MatButtonModule, MatCheckboxModule,MatToolbarModule,MatInputModule,MatProgressSpinnerModule,MatCardModule,MatMenuModule, MatIconModule],
+  declarations: [DataFilterPipe]
+})
 
 @Injectable()
 export class BasicAuthInterceptor implements HttpInterceptor {
@@ -79,7 +91,19 @@ const appRoutes:Routes=[
     routing,
     //ChartsModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatIconModule,
+    MatToolbarModule, 
+MatButtonModule, 
+MatCheckboxModule, 
+MatListModule, 
+BrowserModule, 
+DataTableModule,
+//AppRoutingModule, 
+BrowserAnimationsModule,
+MatPaginatorModule, MatSortModule, MatTableModule, 
   ],
   providers: [
   	appRoutingProviders,

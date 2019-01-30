@@ -38,7 +38,15 @@ const appRoutes: Routes = [
     {path: 'home', component: HomeComponent,canActivate:[AuthGuard]},
     {path: '**', component: LoginComponent}
 
-];
+];    
+
+import {
+  MatToolbarModule,  
+  MatTabsModule,
+  MatButtonModule,
+  MatIconModule,
+  MatCardModule
+} from '@angular/material';
 
 
 

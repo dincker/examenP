@@ -37,7 +37,7 @@ export class PeticionesService{
     }
 
     //Obtener todas las asignaturas
-    getRamos(apiKey:string){
+    getRamos(apiKey:string):Observable<any>{
         let option={headers:new HttpHeaders({'X-API-KEY':apiKey})};
         
         return this._http.get<any>(this.url+'/api/v1/courses/subjects/',{headers: new HttpHeaders().set("X-API-KEY", apiKey)})
