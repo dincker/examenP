@@ -124,10 +124,8 @@
 </mat-row>
 
 </mat-table>-->
-
+<!--Grafico-->
 <div class="row">
-  
-  
   	<div style="width: 60%;margin-left: 20%">
   		<div style="display: block">
     		<canvas baseChart
@@ -139,15 +137,17 @@
             	(chartHover)="chartHovered($event)"
             	(chartClick)="chartClicked($event)"></canvas>
   		</div>
-  		<button class="btn btn-primary" (click)="randomize()">Update</button>
 	</div>
-
-
-
-  	
-  
 </div>
 
+<!--Filtro-->
+<div class="row">
+	<mat-form-field style='width: 80%;margin-left: 10%'>
+  		<input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+	</mat-form-field>
+</div>
+
+<!--Tabla-->
 <div class="row">
   	<mat-table class="lessons-table mat-elevation-z8" style='width: 80%;margin-left: 10%' [dataSource]="matdatasource" >
 
@@ -171,6 +171,8 @@
 </mat-table>
 
 </div>
+
+<!--Paginacion-->
 <div class="row" >
 	<mat-paginator style="width: 80%;margin-left: 10%" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
 </div>

@@ -1,0 +1,52 @@
+<div class="row" >
+	<h3 style="width: 30%;margin-left: 35%;text-align: center">Seleccione un curso</h3>
+</div>
+<div class="row">
+	
+	<form style="width: 30%;margin-left: 35%;text-align: center">
+		<h4>mat-select</h4>
+  		<mat-form-field>
+    		<mat-select placeholder="Cursos" [(ngModel)]="selectedValue" name="curso" (selectionChange)="grafic(selectedValue)">
+      			<mat-option *ngFor="let curso of cursos" [value]="curso">
+        			{{curso.name}}
+      			</mat-option>
+    		</mat-select>
+  		</mat-form-field>
+  		<!--<p> Codigo del curso: {{selectedValue.name}} </p>-->
+	</form>
+
+	<!--<h4>mat-select</h4>
+  		<mat-form-field >
+    		<mat-select placeholder="Cursos" [(ngModel)]="selectedDeviceObj" name="curso" (selectionChange)="grafic(selectedDeviceObj)" style="width: 30%;margin-left: 35%;text-align: center">
+      			<mat-option *ngFor="let curso of cursos" [value]="curso.code" >
+        			{{curso.code}}
+      			</mat-option>
+    		</mat-select>
+  		</mat-form-field>-->
+
+
+  	<!--<mat-form-field style="width: 30%;margin-left: 35%">
+    	<mat-select  placeholder="Cursos" [(ngModel)]="selectedValue" name="cursos">
+      		<mat-option *ngFor="let curso of cursos" [value]='curso' >
+        		{{curso.code}}
+      		</mat-option>
+    	</mat-select>
+    	<mat-error *ngIf="cursoControl.hasError('required')">Seleccione un curso</mat-error>
+  		<mat-hint>{{cursoControl.value?.<noframes></noframes>}}</mat-hint>
+  	</mat-form-field>-->
+</div>
+<div class="row">
+  	<div style="width: 60%;margin-left: 20%">
+  		<div style="display: block">
+    		<canvas baseChart
+            	[datasets]="barChartData"
+            	[labels]="barChartLabels"
+            	[options]="barChartOptions"
+            	[legend]="barChartLegend"
+            	[chartType]="barChartType"
+            	(chartHover)="chartHovered($event)"
+            	(chartClick)="chartClicked($event)"></canvas>
+  		</div>
+	</div>
+
+</div>

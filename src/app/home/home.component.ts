@@ -2,7 +2,6 @@ import { Component, OnInit,ViewChild } from '@angular/core';
 import { PeticionesService } from '../services/peticiones.service';
 import { User } from '../models/user.model';
 import { map } from 'rxjs/operators';
-
 import { DataFilterPipe } from '../pipes/data-filter.pipe';
 import {MatPaginator, MatTableDataSource} from '@angular/material';
 @Component({
@@ -20,10 +19,10 @@ export class HomeComponent implements OnInit {
   public anios:any[];
   public rank:any[];
   public dat=[2,4,6,9,7,4,6];
-	public filterQuery = "";
-  public rowsOnPage = 5;
-  public sortBy = "email";
-  public sortOrder = "asc";
+	//public filterQuery = "";
+  //public rowsOnPage = 5;
+  //public sortBy = "email";
+  //public sortOrder = "asc";
   //public nombre=[];
   //public lala:any;
   public barChartOptions:any = {
@@ -123,49 +122,19 @@ export class HomeComponent implements OnInit {
         }
       },
       error => {
-        alert(<any>error);
+        alert('No existe registro de notas');
       }
     );
 
-    /*let data = [
-      Math.round(Math.random() * 100),
-      59,
-      80,
-      (Math.random() * 100),
-      56,
-      (Math.random() * 100),
-      40];*/
+    
     
   }
+  applyFilter(filterValue: string) {
+    this.matdatasource.filter = filterValue.trim().toLowerCase();
+  }
 
-  public chartClicked(e:any):void {
-    console.log(e);
-  }
- 
-  public chartHovered(e:any):void {
-    console.log(e);
-  }
- 
-  public randomize():void {
-    // Only Change 3 values
-    let data = [
-      Math.round(Math.random() * 100),
-      59,
-      80,
-      (Math.random() * 100),
-      56,
-      (Math.random() * 100),
-      40];
-    let clone = JSON.parse(JSON.stringify(this.barChartData));
-    clone[0].data = data;
-    this.barChartData = clone;
-    /**
-     * (My guess), for Angular to recognize the change in the dataset
-     * it has to change the dataset variable directly,
-     * so one way around it, is to clone the data, change it and then
-     * assign it;
-     */
-  }
+
+
 
 
 

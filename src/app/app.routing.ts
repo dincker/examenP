@@ -5,6 +5,7 @@ import { NgModule } from '@angular/core';
 
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
+import { HomeBetaComponent } from './home-beta/home-beta.component';
 
 
 //import { AuthGuard } from './_guards';
@@ -35,7 +36,8 @@ export class AuthGuard implements CanActivate {
 const appRoutes: Routes = [
     {path: '', component: LoginComponent},
     {path: 'login', component: LoginComponent},
-    {path: 'home', component: HomeComponent,canActivate:[AuthGuard]},
+    {path: 'homeB', component: HomeComponent,canActivate:[AuthGuard]},
+    {path: 'home', component: HomeBetaComponent,canActivate:[AuthGuard]},
     {path: '**', component: LoginComponent}
 
 ];    
