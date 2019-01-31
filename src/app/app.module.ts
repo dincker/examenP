@@ -14,6 +14,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule }   from '@angular/forms';
 import { HomeComponent } from './home/home.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { ChartsModule } from 'ng2-charts';
 //import { MatButtonModule } from '@angular/material/button';
 //import { MatIconModule } from '@angular/material/icon';
 import {MatListModule,MatButtonModule,MatCheckboxModule,MatToolbarModule,MatInputModule,MatProgressSpinnerModule,MatCardModule,MatMenuModule, MatIconModule} from '@angular/material';
@@ -96,14 +97,17 @@ const appRoutes:Routes=[
     MatButtonModule,
     MatIconModule,
     MatToolbarModule, 
-MatButtonModule, 
-MatCheckboxModule, 
-MatListModule, 
-BrowserModule, 
-DataTableModule,
-//AppRoutingModule, 
-BrowserAnimationsModule,
-MatPaginatorModule, MatSortModule, MatTableModule, 
+    MatButtonModule, 
+    MatCheckboxModule, 
+    MatListModule, 
+    BrowserModule, 
+    DataTableModule,
+    //AppRoutingModule, 
+    BrowserAnimationsModule,
+    MatPaginatorModule, 
+    MatSortModule, 
+    MatTableModule, 
+    ChartsModule
   ],
   providers: [
   	appRoutingProviders,

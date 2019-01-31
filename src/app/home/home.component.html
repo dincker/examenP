@@ -125,7 +125,31 @@
 
 </mat-table>-->
 
-<mat-table class="lessons-table mat-elevation-z8" [dataSource]="cursos">
+<div class="row">
+  
+  
+  	<div style="width: 60%;margin-left: 20%">
+  		<div style="display: block">
+    		<canvas baseChart
+            	[datasets]="barChartData"
+            	[labels]="barChartLabels"
+            	[options]="barChartOptions"
+            	[legend]="barChartLegend"
+            	[chartType]="barChartType"
+            	(chartHover)="chartHovered($event)"
+            	(chartClick)="chartClicked($event)"></canvas>
+  		</div>
+  		<button class="btn btn-primary" (click)="randomize()">Update</button>
+	</div>
+
+
+
+  	
+  
+</div>
+
+<div class="row">
+  	<mat-table class="lessons-table mat-elevation-z8" style='width: 80%;margin-left: 10%' [dataSource]="matdatasource" >
 
     <ng-container matColumnDef="name">
         <mat-header-cell *matHeaderCellDef>Nombre</mat-header-cell>
@@ -145,3 +169,9 @@
 </mat-row>
 
 </mat-table>
+
+</div>
+<div class="row" >
+	<mat-paginator style="width: 80%;margin-left: 10%" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+</div>
+

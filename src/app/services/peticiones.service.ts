@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import {Subscription} from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -41,6 +41,29 @@ export class PeticionesService{
         let option={headers:new HttpHeaders({'X-API-KEY':apiKey})};
         
         return this._http.get<any>(this.url+'/api/v1/courses/subjects/',{headers: new HttpHeaders().set("X-API-KEY", apiKey)})
+    }
+
+
+    getAnios(apiKey:string):Observable<any>{
+        let option={headers:new HttpHeaders({'X-API-KEY':apiKey})};
+        
+        return this._http.get<any>(this.url+'/api/v1/rankings/years/',{headers: new HttpHeaders().set("X-API-KEY", apiKey)})
+    }
+
+    getRank(apiKey: string,subjectCode:string):Observable<any>{
+        
+        let option={headers:new HttpHeaders({'X-API-KEY':apiKey})};
+        //let myParams = HttpParams().set("subjectCode", subjectCode);
+        let body={
+            subjectCode:subjectCode,
+        }
+        let params: URLSearchParams = new URLSearchParams();
+ params.set('subjectCode', subjectCode);
+        //let myParams = HttpParams({"subjectCode": subjectCode});
+        //let options = new RequestOptions({ headers: option, method: 'get', params: body });
+        return this._http.get<any>(this.url+'api/v1/rankings/years/'+subjectCode,{headers: new HttpHeaders().set("X-API-KEY",apiKey),params:new HttpParams().set("subjectCode",subjectCode)})
+
+        
     }
 
     /*getProfe(apiKey: string,rut:string){
