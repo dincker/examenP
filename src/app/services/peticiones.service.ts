@@ -13,6 +13,8 @@ export class PeticionesService{
     constructor( public _http: HttpClient){
 
        this.url="https://api.sebastian.cl/academia/"
+       //this.url="http://138.68.23.14/"
+       
     }
 
     login(rut: string, password: string) {

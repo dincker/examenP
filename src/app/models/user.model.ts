@@ -14,6 +14,12 @@ export class GetSubject{
 	){}
 
 }
+export class dat{
+	constructor(
+		public prom:number,
+		public desv:number
+		){}
+}
 
 
 

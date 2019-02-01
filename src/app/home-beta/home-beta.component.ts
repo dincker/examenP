@@ -17,13 +17,16 @@ import {FormControl, Validators} from '@angular/forms';
 
 
 export class HomeBetaComponent implements OnInit {
-	private cursoControl;
-  	private selectFormControl;
+	//private cursoControl;
+  	//private selectFormControl;
   	public selectedValue: any;
   	public selectedCar: string;
   	public rank:any[];
 	public usserLogged:User;
 	public cursos:any[];
+	public prom:number=0;
+  	public cont:number=0;
+  	public desv:number=0;
 	public dat=[2,4,6,9,7,4,6];
 	public barChartLabels:string[] = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
   	public barChartType:string = 'bar';
@@ -34,8 +37,9 @@ export class HomeBetaComponent implements OnInit {
  	constructor(
   		private _peticionesService:PeticionesService
   	){ 
-  		this.cursoControl = new FormControl('', [Validators.required]);
-  		this.selectFormControl = new FormControl('', Validators.required);
+  		//this.cursoControl = new FormControl('', [Validators.required]);
+  		//this.selectFormControl = new FormControl('', Validators.required);
+  		//Solicitar los datos del local Storage
   		this.usserLogged=JSON.parse(localStorage.getItem('currentUser'));
   	}
 
@@ -62,6 +66,8 @@ export class HomeBetaComponent implements OnInit {
 
 
   	grafic(row){
+  		this.desv=0;
+    	this.prom=0;
   		this._peticionesService.getRank(this.usserLogged.apiKey,row.code)
     //console.log('Row clicked: ', row);
     	.subscribe(
@@ -82,7 +88,19 @@ export class HomeBetaComponent implements OnInit {
             			this.barChartLabels.push(this.rank[i].year);
             			this.dat.push(this.rank[i].average);
             			//console.log(this.dat);
+            			this.cont=parseInt(i);
+            			this.prom=this.prom+this.rank[i].average;
           			}
+        			this.prom=this.prom/(this.cont+1);
+          			//Calculo de desviacion
+          			for(var i in this.rank){
+            			this.desv=this.desv+Math.pow((this.rank[i].average-this.prom),2);
+          			}
+          			this.desv=Math.sqrt(this.desv/this.cont);
+          			//console.log(this.desv);
+          			//console.log(this.prom);
+          			document.getElementById("Promedio").innerHTML = "Promedio: "+this.prom;
+          			document.getElementById("Desviacion").innerHTML = "Promedio: "+this.desv;
           			let data =this.dat;
           			let clone = JSON.parse(JSON.stringify(this.barChartData));
           			clone[0].data = this.dat;
@@ -90,7 +108,7 @@ export class HomeBetaComponent implements OnInit {
           			this.barChartData = clone;
           			//console.log(this.nombre);
         		}else{
-          			alert(res1);  
+          			alert("Error de conexion");  
         		}
       		},
       		error => {

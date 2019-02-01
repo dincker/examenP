@@ -43,11 +43,11 @@ export class LoginComponent implements OnInit {
     .pipe(first())
     .subscribe(
       response=>{
-        console.log(response);
+        //console.log(response);
         this.role=response.role;
         //this._peticionesService.setRut(this.rut);
         if(response.role=='Estudiante'){
-    		console.log("hhhhhhhhhhhhhhhhhhhhhhhhhh");
+    		//console.log("hhhhhhhhhhhhhhhhhhhhhhhhhh");
           this.router.navigate(['/home']);
         }
     	else if (response.role=='Docente') {
@@ -57,7 +57,7 @@ export class LoginComponent implements OnInit {
 
       },
       error=>{
-        console.log(<any>error);
+        console.log("Error al ingresar");
       }
 
       );

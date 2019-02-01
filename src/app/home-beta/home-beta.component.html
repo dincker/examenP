@@ -1,12 +1,31 @@
-<div class="row" >
+
+<header>
+	<div class="row" style="background-color: #ffffff;box-shadow: -1px 3px 6px 0 rgba(32,33,36,0.28);height: 60px;width: 100% margin-left:3px; margin-bottom: 20px">
+	
+  <div class="col-md-4">
+  	<img src="assets/imagenes/logo_utem.png" height="50px" class="avatar" style="margin-left:20px;margin-top:5px; " [routerLink]="['/homeB']">
+
+  </div>
+  <div class="col-md-4"><h1 style="text-align: center; margin-top:15px; font-family: Bodoni MT;font-size: 3.2em">Estadisticas de notas</h1></div>
+  <div class="col-md-4" style="text-align: right">
+  	<img src="assets/imagenes/icono-salir-png-2.png" height="50px" class="avatar" style="margin-right:20px;margin-top:5px; " [routerLink]="['']">
+  	
+  </div>
+
+	
+</div>
+</header>
+
+<body>
+	
+	<div class="row" style="margin-top: 50px;" >
 	<h3 style="width: 30%;margin-left: 35%;text-align: center">Seleccione un curso</h3>
 </div>
 <div class="row">
 	
 	<form style="width: 30%;margin-left: 35%;text-align: center">
-		<h4>mat-select</h4>
   		<mat-form-field>
-    		<mat-select placeholder="Cursos" [(ngModel)]="selectedValue" name="curso" (selectionChange)="grafic(selectedValue)">
+    		<mat-select placeholder="Cursos" [(ngModel)]="selectedValue" name="curso" (selectionChange)="grafic(selectedValue)" style='width: 100%'>
       			<mat-option *ngFor="let curso of cursos" [value]="curso">
         			{{curso.name}}
       			</mat-option>
@@ -34,8 +53,10 @@
     	<mat-error *ngIf="cursoControl.hasError('required')">Seleccione un curso</mat-error>
   		<mat-hint>{{cursoControl.value?.<noframes></noframes>}}</mat-hint>
   	</mat-form-field>-->
+
 </div>
-<div class="row">
+
+<div class="row" style="margin-top:30px">
   	<div style="width: 60%;margin-left: 20%">
   		<div style="display: block">
     		<canvas baseChart
@@ -50,3 +71,14 @@
 	</div>
 
 </div>
+<br>
+<div class="row" id="Promedio" style="margin-left:40%;margin-top:20px;font-size: 1.5em">
+	Promedio
+</div>
+<div class="row" id="Desviacion" style="margin-left:40%;margin-top:10px;font-size: 1.5em">
+	Desviacion
+</div>
+	
+</body>
+
+
