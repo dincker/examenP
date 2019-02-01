@@ -19,13 +19,13 @@ export class HomeComponent implements OnInit {
   public anios:any[];
   public anios2:any[];
   public rank:any[];
-  //Notas por año
+  //Notas por año y curso
   public dat=[2,4,6,9,7,4,6];
-  //notas por año y curso
+  //notas por año 
   public dat2=[2,4,6,9,7,4,6];
-  //desviacion por año
-  public dat3=[2,4,6,9,7,4,6];
   //desviacion por año y curso
+  public dat3=[2,4,6,9,7,4,6];
+  //desviacion por año 
   public dat4=[2,4,6,9,7,4,6];
   public prom:number=0;
   public cont:number=0;
@@ -44,6 +44,7 @@ export class HomeComponent implements OnInit {
    public barChartLabels:string[] = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
   public barChartType:string = 'bar';
   public barChartLegend:boolean = true;
+  //Datos del grafico
   public barChartData:any[] = [
     {data: [], label: 'Series A'},
     {data: [], label: 'Series B'},
@@ -73,7 +74,7 @@ export class HomeComponent implements OnInit {
           //this.nombre.push(this.cursos[i].code);}
           //console.log(this.nombre);
         }else{
-          alert(result);     }
+          alert(Problema en la conexion);     }
       },
       error => {
         alert(<any>error);
@@ -85,14 +86,17 @@ export class HomeComponent implements OnInit {
       res => {
         if(res != 200){
           this.anios = res;
-          console.log(this.anios);
+          //console.log(this.anios);
           //vaciar datos de años y notas por defecto
           this.barChartLabels.splice(0, this.barChartLabels.length);
           this.dat2.splice(0, this.dat2.length);
+          this.dat4.splice(0, this.dat4.length);
           //For para llenar los años y notas del curso
           for(var i in this.anios){
             this.barChartLabels.push(this.anios[i].year);
+            //Agrega años y desviaciones a un arreglo auxiliar
             this.dat2.push(this.anios[i].average);
+            this.dat4.push(this.anios[i].stddev);
           }
           //guardando datos en un arreglo auxiliar
           let data =this.dat2;
@@ -101,8 +105,11 @@ export class HomeComponent implements OnInit {
           //almacenando valores nuevos en la copia
           clone[0].data = this.dat2;
           clone[0].label="Promedio anual";
+
           //guardando datos en arreglo de grafico original
           this.barChartData = clone;
+          this.barChartData[2].data=this.dat4;
+          this.barChartData[2].label="Desviacion anual"
           
         }else{
           alert(res);     }
@@ -132,10 +139,11 @@ export class HomeComponent implements OnInit {
           //console.log(this.rank[0].average);
           //this.barChartLabels.splice(0, this.barChartLabels.length);
           this.dat.splice(0, this.dat.length);
+          this.dat3.splice(0, this.dat3.length);
           //this.barChartLabels.
           //console.log(this.dat);
-          console.log(this.barChartLabels);
-          console.log(this.rank);
+          //console.log(this.barChartLabels);
+          //console.log(this.rank);
           for(var i=0; i<(this.barChartLabels.length);i++){
             for (var j = 0; j < this.rank.length; j++) {
               //console.log(j);
@@ -144,12 +152,14 @@ export class HomeComponent implements OnInit {
               if (this.barChartLabels[i]==this.rank[j].year) {
 
                   this.dat.push(this.rank[j].average);
+                  this.dat3.push(this.rank[j].stddev);
                   this.op=1;
               }
 
             }
             if (this.op==0) {
                 this.dat.push(0);
+                this.dat3.push(0);
               }else{
               this.op=0;
             }
@@ -164,8 +174,9 @@ export class HomeComponent implements OnInit {
             //Suma los valores
             //this.prom=this.prom+this.rank[i].average;
             //console.log(this.dat);
-          };
-          //console.log(this.dat);
+          }
+
+          console.log(this.dat3);
           //promedio
           //this.prom=this.prom/(this.cont+1);
           //Calculo de desviacion
@@ -177,18 +188,20 @@ export class HomeComponent implements OnInit {
           //console.log(this.desv);
           //console.log(this.prom);
           //modifica los falores en el html
-          console.log(this.dat)
+          //console.log(this.dat3)
           //document.getElementById("Promedio").innerHTML = "Promedio: "+this.prom;
           //document.getElementById("Desviacion").innerHTML = "Desviacion: "+this.desv;
           let data2 =this.dat;
           //let date=this.
-          console.log(data2);
+          //console.log(data2);
           let clone = JSON.parse(JSON.stringify(this.barChartData));
-          console.log(clone);
+          //console.log(clone);
           clone[1].data = data2;
           clone[1].label="Promedio curso";
-          console.log(clone);
+          //console.log(clone);
           this.barChartData = clone;
+          this.barChartData[3].data=this.dat3;
+          this.barChartData[3].label="Desviacion por curso";
           //console.log(this.nombre);
         }else{
           alert("Error de Conexion");  
