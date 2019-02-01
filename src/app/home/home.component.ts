@@ -74,7 +74,8 @@ export class HomeComponent implements OnInit {
           //Almacenando los datos a utilizar en el list
           this.matdatasource.data = result;
         }else{
-          alert(Problema en la conexion);     }
+          alert('Problema en la conexion');     
+        }
       },
       error => {
         alert(<any>error);
