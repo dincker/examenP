@@ -13,6 +13,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   providers: [PeticionesService],
 })
 export class LoginComponent implements OnInit {
+  //definiendo variables
 	loginForm: FormGroup;
   loading = false;
   submitted = false;
@@ -23,31 +24,32 @@ export class LoginComponent implements OnInit {
   apiKey:string;
   public usuario:LogUsuario;
   constructor(
+    //dando valores a algunas variables
   		private router:Router,
       private _http: HttpClient,
       private _peticionesService:PeticionesService
   	) {
+    //arreglo para almacenar datos
   		this.usuario = new LogUsuario('','')
   	}
 
   ngOnInit() {
-    //this.ar[];
+    //cerrando la session al salir
     this._peticionesService.logout();
     this.returnUrl = this.router.navigate['/login'];
   }
 
 
   onSubmit(form){
-  	console.log(this.usuario.rut)
+    //solicitando datos del login
     this._peticionesService.login(this.usuario.rut,this.usuario.password)
     .pipe(first())
     .subscribe(
       response=>{
         //console.log(response);
+
         this.role=response.role;
-        //this._peticionesService.setRut(this.rut);
         if(response.role=='Estudiante'){
-    		//console.log("hhhhhhhhhhhhhhhhhhhhhhhhhh");
           this.router.navigate(['/home']);
         }
     	else if (response.role=='Docente') {

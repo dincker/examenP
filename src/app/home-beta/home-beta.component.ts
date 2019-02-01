@@ -17,16 +17,13 @@ import {FormControl, Validators} from '@angular/forms';
 
 
 export class HomeBetaComponent implements OnInit {
-	//private cursoControl;
-  	//private selectFormControl;
-  	public selectedValue: any;
-  	public selectedCar: string;
-  	public rank:any[];
+  //ceando variables
+  public selectedValue: any;
+  public selectedCar: string;
+  public rank:any[];
 	public usserLogged:User;
 	public cursos:any[];
 	public prom:number=0;
-  	//public cont:number=0;
-  	//7public desv:number=0;
 	//Notas por año y curso
   public dat=[2,4,6,9,7,4,6];
   //notas por año 
@@ -38,51 +35,49 @@ export class HomeBetaComponent implements OnInit {
   //Arreglo con los años de la tabla
 	public barChartLabels:string[] = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
   //Tipo de grafico
-  	public barChartType:string = 'bar';
-    //Leyenda activada
-  	public barChartLegend:boolean = true;
-    //Datos del grafico
-    public barChartData:any[] = [
+  public barChartType:string = 'bar';
+  //Leyenda activada
+  public barChartLegend:boolean = true;
+  //Datos del grafico
+  public barChartData:any[] = [
     {data: [], label: 'Series A'},
     {data: [], label: 'Series B'},
     {data: [], label: 'Series C'},
-    {data: [], label: 'Series D'}
-    
+    {data: [], label: 'Series D'} 
   ];
  	constructor(
   		private _peticionesService:PeticionesService
   	){ 
-  		//this.cursoControl = new FormControl('', [Validators.required]);
-  		//this.selectFormControl = new FormControl('', Validators.required);
-  		//Solicitar los datos del local Storage
+     //Solicitando datos del local storage
   		this.usserLogged=JSON.parse(localStorage.getItem('currentUser'));
   	}
 
 	ngOnInit() {
+    //Solicitando los ramos metodo get
   		this._peticionesService.getRamos(this.usserLogged.apiKey)
     	.subscribe(
     		result => {
+          //si encuentra los resultados
         		if(result.code != 200){
           			this.cursos = result;
           			//console.log(this.cursos);
         		}else{
-	          		alert(result);     
+	          		alert('Parametros incorrectos');     
       			}
       		},
       		error => {
-	        	alert(<any>error);
+	        	alert('Error de conexion');
       		}
 
     	);
 
 
-
+      //solicitando estadisticas por año
       this._peticionesService.getAnios(this.usserLogged.apiKey)
     .subscribe(
       res => {
         if(res != 200){
           this.anios = res;
-          //console.log(this.anios);
           //vaciar datos de años y notas por defecto
           this.barChartLabels.splice(0, this.barChartLabels.length);
           this.dat2.splice(0, this.dat2.length);
@@ -119,32 +114,26 @@ export class HomeBetaComponent implements OnInit {
     	
   	}
 
-
+    //funcion al seleccionar un curso
   	grafic(row){
-  		//this.desv=0;
-    	//this.prom=0;
+      //Solicitud para obtener el ranking por curso
   		this._peticionesService.getRank(this.usserLogged.apiKey,row.code)
     //console.log('Row clicked: ', row);
     .subscribe(
       res1 => {
         if(res1 != 200){
           this.rank = res1;
-          //console.log(this.rank);
-          //console.log(this.rank[0].average);
-          //this.barChartLabels.splice(0, this.barChartLabels.length);
+          //vaciando datos de arreglo por defecto
           this.dat.splice(0, this.dat.length);
           this.dat3.splice(0, this.dat3.length);
-          //this.barChartLabels.
-          //console.log(this.dat);
-          //console.log(this.barChartLabels);
-          //console.log(this.rank);
+          //for para recorrer los años
           for(var i=0; i<(this.barChartLabels.length);i++){
+            //for para buscar años en comun con el rank del curso
             for (var j = 0; j < this.rank.length; j++) {
-              //console.log(j);
               
-                
+                //Comprobando similitudes
               if (this.barChartLabels[i]==this.rank[j].year) {
-
+                  //agregando datos al arreglo
                   this.dat.push(this.rank[j].average);
                   this.dat3.push(this.rank[j].stddev);
                   this.op=1;
@@ -157,46 +146,19 @@ export class HomeBetaComponent implements OnInit {
               }else{
               this.op=0;
             }
-            //Agregando valores 
-            //this.barChartLabels.push(this.rank[i].year);
-            //Busca años en comun y agrega las notas, en el caso contrario agrega un 0
-            
-            
-            //console.log(this.rank[i].average)
-            //Guardar contador
-            //this.cont=parseInt(i);
-            //Suma los valores
-            //this.prom=this.prom+this.rank[i].average;
-            //console.log(this.dat);
           }
 
-          console.log(this.dat3);
-          //promedio
-          //this.prom=this.prom/(this.cont+1);
-          //Calculo de desviacion
-          //for(var i in this.rank){
-            //this.desv=this.desv+Math.pow((this.rank[i].average-this.prom),2);
-          //}
-          //Desviacion
-          //this.desv=Math.sqrt(this.desv/this.cont);
-          //console.log(this.desv);
-          //console.log(this.prom);
-          //modifica los falores en el html
-          //console.log(this.dat3)
-          //document.getElementById("Promedio").innerHTML = "Promedio: "+this.prom;
-          //document.getElementById("Desviacion").innerHTML = "Desviacion: "+this.desv;
+          //almacenando datos en un auxiliar
           let data2 =this.dat;
-          //let date=this.
-          //console.log(data2);
+          //clonando datos
           let clone = JSON.parse(JSON.stringify(this.barChartData));
-          //console.log(clone);
           clone[1].data = data2;
           clone[1].label="Promedio curso";
-          //console.log(clone);
+           //agregando valores al grafico
           this.barChartData = clone;
           this.barChartData[3].data=this.dat3;
           this.barChartData[3].label="Desviacion por curso";
-          //console.log(this.nombre);
+
         }else{
           alert("Error de Conexion");  
         }
